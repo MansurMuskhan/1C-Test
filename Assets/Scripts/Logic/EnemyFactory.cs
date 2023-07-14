@@ -32,22 +32,8 @@ public class EnemyFactory : MonoBehaviour
     {
         ActionsService.ValuesUpdate += ()=> 
         { 
-            _timer = Random.Range(1, Settings.settingsValues[SettingType.SpawnRateTime]); ValuesUpdate(); 
+            _timer = Random.Range(1, Settings.settingsValues[SettingType.SpawnRateTime]); 
         };
-    }
-
-    void ValuesUpdate()
-    {
-        foreach (var item in _enemyData.ListOgre)
-        {
-            item.MoveSpeed = Random.Range(1, Settings.settingsValues[SettingType.EnemiesSpeed]);
-            item.MaxHealth = Settings.settingsValues[SettingType.EnemiesHealth];
-        }
-        foreach (var item in _enemyData.ListTroll)
-        {
-            item.MoveSpeed = Random.Range(1, Settings.settingsValues[SettingType.EnemiesSpeed]);
-            item.MaxHealth = Settings.settingsValues[SettingType.EnemiesHealth];
-        }
     }
 
     private void Start()
@@ -68,7 +54,6 @@ public class EnemyFactory : MonoBehaviour
                 _rateTime = _timer;
                 int p = Random.Range(0, _spawnPoints.Length);
 
-                ValuesUpdate();
                 Create(EnemyType.orge, 1, _spawnPoints[p].position);
             }
 
@@ -92,6 +77,6 @@ public class EnemyFactory : MonoBehaviour
 [System.Serializable]
 public class EnemyData
 {
-    public float MoveSpeed;
-    public float MaxHealth;
+    public float MoveSpeed => Random.Range(1, Settings.settingsValues[SettingType.EnemiesSpeed]);
+    public float MaxHealth => Settings.settingsValues[SettingType.EnemiesHealth];
 }
